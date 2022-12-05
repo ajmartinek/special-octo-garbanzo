@@ -15,3 +15,31 @@ A built-in reputation system that allows users to rate and review each other, pr
 A user-friendly interface that makes it easy for users to initiate, cancel, and complete NFT swaps, even if they are not familiar with blockchain technology.
 A smart contract-based escrow system that can be used to hold funds and NFTs in a secure and transparent manner during the swap process.
 A set of customizable rules and parameters that allow users to define the terms and conditions of their swaps, such as minimum and maximum prices, expiration dates, and other conditions.
+                                                Org chart:
+                                            +---------------+
+                                            | Board of       |
+                                            | Directors      |
+                                            +---------------+
+                                                      |
+                                                      v
+                                            +---------------+
+                                            | CEO           |
+                                            +---------------+
+                                                      |
+                                                      v
+                                            +---------------+
+                                            | Development    |
+                                            | Team           |
+                                            +---------------+
+                                                      |
+                                                      v
+                                            +---------------+
+                                            | Operations     |
+                                            | Team           |
+                                            +---------------+
+                                                      |
+                                                      v
+                                            +---------------+
+                                            | Marketing      |
+                                            | Team           |
+                                            +---------------+
