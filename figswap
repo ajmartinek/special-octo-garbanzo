@@ -1,0 +1,89 @@
+pragma solidity ^0.5.0;
+
+// Import the ERC-721 standard interface
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721.sol";
+
+// Import the SafeMath library
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol";
+
+// Contract that implements the peer-to-peer NFT swap protocol
+contract P2PNFTExchange {
+    using SafeMath for uint256;
+
+    // Mapping from a token ID to the address of the owner
+    mapping(uint256 => address) private tokenOwners;
+
+    // Mapping from an owner address to a list of their token IDs
+    mapping(address => uint256[]) private tokensOfOwner;
+
+    // Event that is emitted when a swap is initiated
+    event SwapInitiated(
+        address indexed _from,
+        address indexed _to,
+        uint256 indexed _tokenId
+    );
+
+    // Event that is emitted when a swap is cancelled
+    event SwapCancelled(
+        address indexed _from,
+        address indexed _to,
+        uint256 indexed _tokenId
+    );
+
+    // Event that is emitted when a swap is completed
+    event SwapCompleted(
+        address indexed _from,
+        address indexed _to,
+        uint256 indexed _tokenId
+    );
+
+    // Function that is called to initiate a swap
+    function initiateSwap(
+        address _to,
+        uint256 _tokenId
+    )
+        public
+        // Only the owner of the token can initiate a swap
+        require(msg.sender == tokenOwners[_tokenId], "Only the owner can initiate a swap")
+    {
+        // Emit the SwapInitiated event
+        emit SwapInitiated(msg.sender, _to, _tokenId);
+    }
+
+    // Function that is called to cancel a swap
+    function cancelSwap(
+        address _to,
+        uint256 _tokenId
+    )
+        public
+        // Only the owner of the token can cancel a swap
+        require(msg.sender == tokenOwners[_tokenId], "Only the owner can cancel a swap")
+    {
+        // Emit the SwapCancelled event
+        emit SwapCancelled(msg.sender, _to, _tokenId);
+    }
+
+    // Function that is called to complete a swap
+    function completeSwap(
+        address _from,
+        address _to,
+        uint256 _tokenId
+    )
+        public
+        // Only the recipient of the swap can complete it
+        require(msg.sender == _to, "Only the recipient can complete a swap")
+    {
+        // Transfer the token from the sender to the recipient
+        _transferFrom(_from, _to, _tokenId);
+
+        // Emit the SwapCompleted event
+        emit SwapCompleted(_from, _to, _tokenId);
+    }
+
+    // Internal function to transfer a token from one address to another
+    function _transferFrom(
+        address _from,
+        address _to,
+        uint256 _tokenId
+    )
+        internal
